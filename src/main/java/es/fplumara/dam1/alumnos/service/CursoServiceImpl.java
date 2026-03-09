@@ -1,27 +1,46 @@
 package es.fplumara.dam1.alumnos.service;
 
 import es.fplumara.dam1.alumnos.model.Curso;
+import es.fplumara.dam1.alumnos.repository.CursoRepository;
 
 import java.util.List;
 
-public class CursoServiceImpl {
+public class CursoServiceImpl implements CursoService {
 
-    public Curso crearCurso(String nombre, boolean b) {
-        Curso nuevoCurso = new Curso();
-        return crearCurso(nombre, true);
+    private final CursoRepository cursoRepository;
+
+    public CursoServiceImpl(CursoRepository cursoRepository) {
+        this.cursoRepository = cursoRepository;
     }
 
-    public Boolean activar(Boolean b) {
-        return activar(b);
+    @Override
+    public void initSchema() {
+
     }
 
-    public String eliminarSiNombreContiene(String nombre) {
+    @Override
+    public Curso crearCurso(String nombre, Boolean activo) {
 
-        ;
-    }
-
-    public List<Curso> listarPorEstado(Boolean activo) {
         return null;
     }
 
+    @Override
+    public Curso activarCurso(Integer id) {
+        return null;
+    }
+
+    @Override
+    public Curso eliminarSiNombreContiene(String nombre) {
+        return null;
+    }
+
+    @Override
+    public List<Curso> listarPorEstado(Boolean activo) {
+        return List.of();
+    }
+
+    @Override
+    public List<Curso> listarOrdenadoPor(String campo, String tipoOrden) {
+        return List.of();
+    }
 }

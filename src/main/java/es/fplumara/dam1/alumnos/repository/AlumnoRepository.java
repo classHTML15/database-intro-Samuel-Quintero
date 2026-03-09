@@ -15,4 +15,5 @@ public interface AlumnoRepository {
     Alumno insert(Alumno alumno);
 
     Alumno update(Alumno alumno);
+
 }

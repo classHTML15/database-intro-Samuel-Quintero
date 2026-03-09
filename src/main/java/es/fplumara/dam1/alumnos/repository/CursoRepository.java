@@ -1,21 +1,23 @@
 package es.fplumara.dam1.alumnos.repository;
 
+import es.fplumara.dam1.alumnos.model.Alumno;
 import es.fplumara.dam1.alumnos.model.Curso;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CursoRepository {
 
     void initSchema();
 
-    Curso crearCurso(String nombre, Boolean activo);
+    Optional<Curso> findById(Integer id);
 
-    Curso activarCurso(Integer id);
+    List<Curso> findAll();
 
-    Curso eliminarSiNombreContiene(String nombre);
+    Curso insert(Curso curso);
 
-    List<Curso> listarPorEstado(Boolean activo);
+    Curso update(Curso curso);
 
-    List<Curso> listarOrdenadoPor(String campo, String tipoOrden);
+    void eliminarCurso(String nombre);
 
 }

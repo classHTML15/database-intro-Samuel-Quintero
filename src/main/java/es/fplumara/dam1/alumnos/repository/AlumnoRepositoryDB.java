@@ -19,6 +19,11 @@ public class AlumnoRepositoryDB implements AlumnoRepository {
     }
 
     private Connection getConnection() throws SQLException {
+        String url  = System.getenv().getOrDefault("JDBC_URL",
+                "jdbc:postgresql://localhost:5432/dam1");
+        String user = System.getenv().getOrDefault("JDBC_USER", "dam1");
+        String pass = System.getenv().getOrDefault("JDBC_PASSWORD", "dam1");
+
         return DriverManager.getConnection(url, user, pass);
     }
 
