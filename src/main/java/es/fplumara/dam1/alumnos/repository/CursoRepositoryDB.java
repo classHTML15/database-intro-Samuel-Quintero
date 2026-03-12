@@ -73,11 +73,56 @@ public class CursoRepositoryDB implements CursoRepository {
 
     @Override
     public Curso insert(Curso curso) {
-        return null;
+        if (curso == null) {
+            throw new NullPointerException("El curso no puede ser nulo");
+        }
+
+        String sql = "INSERT INTO curso (id, nombre, activo) VALUES (?, ?)";
+
+        try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setInt(1, curso.getId());
+            ps.setString(2, curso.getNombre());
+            ps.setBoolean(3, curso.isActivo());
+            ps.executeUpdate();
+
+            ResultSet keys = ps.getGeneratedKeys();
+            if (keys.next()) {
+                curso.setId(keys.getInt(1));
+            }
+            return curso;
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public Curso update(Curso curso) {
+        if(curso == null) {
+            throw new IllegalArgumentException("El curso no puede ser nulo");
+        }
+        if(curso.getId() == null || curso.getId() < 0) {
+            throw new IllegalArgumentException("El id de curso no debe ser negativo");
+        }
+
+        String sql = "UPDATE curso SET nombre = ?, activo = ? WHERE id = ?";
+
+        try{
+            Connection c = getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setInt(1, curso.getId());
+            ps.setString(2, curso.getNombre());
+            ps.setBoolean(3, curso.isActivo());
+
+            int update =  ps.executeUpdate();
+            if(update == 0) {
+                throw new RuntimeException("No un curso con ese id" + curso.getId());
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error iniciando el curso" + curso.getId(), e);
+        }
         return null;
     }
 

@@ -4,6 +4,7 @@ import es.fplumara.dam1.alumnos.model.Curso;
 
 import java.util.List;
 
+
 public interface CursoService {
 
     void initSchema();

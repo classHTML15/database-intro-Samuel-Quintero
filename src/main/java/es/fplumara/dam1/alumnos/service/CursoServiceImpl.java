@@ -4,6 +4,7 @@ import es.fplumara.dam1.alumnos.model.Curso;
 import es.fplumara.dam1.alumnos.repository.CursoRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CursoServiceImpl implements CursoService {
 
@@ -21,16 +22,32 @@ public class CursoServiceImpl implements CursoService {
     @Override
     public Curso crearCurso(String nombre, Boolean activo) {
 
-        return null;
+        boolean estadoActivo;
+        if (activo != null) {
+            estadoActivo = activo;
+        } else {
+            estadoActivo = true;
+        }
+
+        Curso nuevoCurso = new Curso(null, estadoActivo, nombre);
+
+        return cursoRepository.insert(nuevoCurso);
     }
 
     @Override
     public Curso activarCurso(Integer id) {
+        Optional<Curso> curso = cursoRepository.findById(id);
+        if (curso.isPresent()) {
+            Curso cursoActivado = curso.get();
+            cursoActivado.setActivo(true);
+            return cursoRepository.update(cursoActivado);
+        }
         return null;
     }
 
     @Override
     public Curso eliminarSiNombreContiene(String nombre) {
+        if ()
         return null;
     }
 
